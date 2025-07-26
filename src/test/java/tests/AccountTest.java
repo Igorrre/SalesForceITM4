@@ -1,6 +1,7 @@
 package tests;
 
 import org.testng.annotations.Test;
+import pages.MainPage;
 
 public class AccountTest extends BaseTest {
 
@@ -8,7 +9,9 @@ public class AccountTest extends BaseTest {
     public void checkCreateAccount() throws InterruptedException {
         loginPage.open();
         loginPage.login();
+        mainPage.isPageOpened();
         newAccountModal.openAccountPage();
+        softAssert.assertTrue(newAccountModal.isPageOpened());
         newAccountModal.createAccount(
                 "Test",
                 "+77777777777",
@@ -28,6 +31,7 @@ public class AccountTest extends BaseTest {
                 "Private"
         );
         newAccountModal.saveAccount();
-        newAccountPage.checkNotification();
+        softAssert.assertTrue(newAccountPage.isPageOpened());
+        softAssert.assertTrue(newAccountPage.checkNotification(), "Account was created");
     }
 }

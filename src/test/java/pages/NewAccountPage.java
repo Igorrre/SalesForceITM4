@@ -5,16 +5,18 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class NewAccountPage extends BasePage {
+    private final By MESSAGE = By.cssSelector("div[data-key='success']");
 
     public NewAccountPage(WebDriver driver) {
         super(driver);
     }
 
-    public void checkNotification() {
+    public boolean isPageOpened() {
+        return isElementDisplayed(MESSAGE);
+    }
+    public boolean checkNotification() {
         // Ждем появления уведомления
         String notification = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div[data-key='success']"))).getText();
-        // Проверяем наличие нужной фразы
-        assert notification.contains("Test") && notification.contains("was created") :
-                "Создание аккаунта не подтверждено: сообщение: " + notification;
+        return notification.contains("Test") && notification.contains("was created");
     }
 }

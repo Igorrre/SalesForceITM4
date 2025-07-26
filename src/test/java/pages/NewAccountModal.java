@@ -8,7 +8,7 @@ import wrappers.Picklist;
 import wrappers.Textarea;
 
 public class NewAccountModal extends BasePage {
-
+    private final By BUTTON = By.xpath("//button[@name='SaveEdit']");
     public NewAccountModal(WebDriver driver) {
         super(driver);
     }
@@ -44,5 +44,9 @@ public class NewAccountModal extends BasePage {
 
     public void saveAccount() {
         driver.findElement(By.xpath("//button[@name='SaveEdit']")).click();
+    }
+
+    public boolean isPageOpened() {
+        return isElementDisplayed(BUTTON);
     }
 }
