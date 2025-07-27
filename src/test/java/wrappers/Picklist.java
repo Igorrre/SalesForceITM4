@@ -4,7 +4,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import pages.BasePage;
 
 public class Picklist {
 
@@ -26,7 +25,7 @@ public class Picklist {
 //        driver.findElement(By.xpath(String.format
 //                ("//label[text()='%s']//ancestor::lightning-picklist//button", label))).click();
 
-        wait.until(ExpectedConditions.visibilityOfElementLocated(
+        wait.until(ExpectedConditions.elementToBeClickable(
                 By.xpath(String.format("//label[text()='%s']//ancestor::lightning-picklist//lightning-base-combobox-item//span[text()='%s']",
                         label, option)))).click();
 //        driver.findElement(By.xpath

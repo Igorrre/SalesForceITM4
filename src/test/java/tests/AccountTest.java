@@ -1,37 +1,26 @@
 package tests;
 
+import com.github.javafaker.Faker;
+import dto.Account;
 import org.testng.annotations.Test;
-import pages.MainPage;
 
 public class AccountTest extends BaseTest {
 
-    @Test
-    public void checkCreateAccount() throws InterruptedException {
-        loginPage.open();
-        loginPage.login();
-        mainPage.isPageOpened();
-        newAccountModal.openAccountPage();
-        softAssert.assertTrue(newAccountModal.isPageOpened());
-        newAccountModal.createAccount(
-                "Test",
-                "+77777777777",
-                "Hot",
-                "23412",
-                "132@gma.com",
-                "11",
-                "iga",
-                "%",
-                "100",
-                "1",
-                "5",
-                "ffertggterg",
-                "l.;,kmjhngb",
-                "Prospect",
-                "Banking",
-                "Private"
-        );
-        newAccountModal.saveAccount();
-        softAssert.assertTrue(newAccountPage.isPageOpened());
+    @Test(description = "Создание нового аккаунта компании",
+            testName = "Проверка создания нового аккаунта компании")
+    public void checkCreateAccount() {
+        //Account account = getAccount("Hot","Prospect","Banking","Public", true,false);
+        Faker faker = new Faker();
+        Account account1 = Account.builder()
+                .name(faker.name().name())
+                .phone(faker.phoneNumber().phoneNumber())
+                .checkboxVip(true)
+                .textBiling(faker.address().streetAddress())
+                .rating("Cold")
+                .fax(faker.phoneNumber().phoneNumber())
+                .build();
+        loginStep.authorisation("tborodich@tms.sandbox", "Password003!");
+        accountStep.createAccount(account1);
         softAssert.assertTrue(newAccountPage.checkNotification(), "Account was created");
     }
 }
